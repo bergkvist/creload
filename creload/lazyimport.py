@@ -20,10 +20,10 @@ class lazyimport:
     def __repr__(self):
         return self.apply(lambda m: m.__repr__())
     
-    def __getattr__(self, key):
+    def __getattr__(self, key: str):
         return lazyimport(self.modulename, [ *self.attrs, key ])
     
-    def __getitem__(self, key):
+    def __getitem__(self, key: str):
         return lazyimport(self.modulename, [ *self.attrs, key ])
     
     def __call__(self, *args, **kwargs):
