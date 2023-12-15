@@ -1,12 +1,13 @@
 import multiprocessing as mp
+from functools import wraps
 
 
-class subprocess:
+def subprocess(fn):
     """Decorate a function to hint that it should be run in a forked subprocess"""
-    def __init__(self, fn):
-        self.fn = fn
-    def __call__(self, *args, **kwargs):
-        return subprocess_call(self.fn, *args, **kwargs)
+    @wraps(fn)
+    def wrapped_fn(*args, **kwargs):
+        return subprocess_call(fn, *args, **kwargs)
+    return wrapped_fn
 
 
 def subprocess_call(fn, *args, **kwargs):
